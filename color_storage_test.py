@@ -1,41 +1,46 @@
 import time
 from PIL import Image
-import math
 
-c = 64
-k = int(256 / c)
+d = 7 # color depth [0 - 8]
 
-# store colors as numbers
+c = 2 ** d
+m = int(256 / c)
+
 t0 = time.time()
 z = {}
 for r in range(c):
     for g in range(c):
         for b in range(c):
-            z[c ** 2 * r + c * g + b] = c ** 2 * r * k + c * g * k + b * k
+            i = c ** 2 * r + c * g + b
+            z[i] = m * i
 t1 = time.time()
-print(1000 * (t1 - t0))
+print('storing colors as numbers: {:6.3f}s'.format(t1 - t0))
 
-# store colors as triples
 t0 = time.time()
 z = {}
 for r in range(c):
     for g in range(c):
         for b in range(c):
-            z[(r, g, b)] = (r * k, g * k, b * k)
+            z[(r, g, b)] = (m * r, m * g, m * b)
 t1 = time.time()
-print(1000 * (t1 - t0))
+print('storing colors as triples: {:6.3f}s'.format(t1 - t0)) # best
 
-# store colors as pixels
 t0 = time.time()
-s = math.ceil(c ** 1.5)
-z = Image.new('RGB', (s, s))
-i = 0
+z = Image.new('RGB', (c ** 3, 1))
 for r in range(c):
     for g in range(c):
         for b in range(c):
-            x = i % s
-            y = i // s
-            z.putpixel((x, y), (r * k, g * k, b * k))
-            i += 1
+            i = c ** 2 * r + c * g + b
+            z.putpixel((i, 0), (m * r, m * g, m * b))
+# cannot use putdata since colors would be sparse and unsorted in practice
 t1 = time.time()
-print(1000 * (t1 - t0))
+print('storing colors as pixels:  {:6.3f}s'.format(t1 - t0)) # worst
+
+t0 = time.time()
+z = []
+for r in range(c):
+    for g in range(c):
+        for b in range(c):
+            z.append(((r, g, b), (m * r, m * g, m * b)))
+t1 = time.time()
+print('storing colors as pairs:   {:6.3f}s'.format(t1 - t0))
