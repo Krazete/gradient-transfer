@@ -55,11 +55,27 @@ class ColorMap:
             self.memomap[(r, g, b)] = (int(u / w), int(k / w), int (l / w))
         return self.memomap[(r, g, b)]
 
-    def applyColormap(self, image, scale=1):
+    def applyColorMap(self, image, scale=1):
         img = image.resize((int(scale * image.width), int(scale * image.height))).convert('RGBA')
 
         img.putdata([(*self.getColor(r, g, b), a) for r, g, b, a in img.getdata()])
         return img
+
+    def dumpSparseMap(self):
+        s = -int(-len(self.sparsemap) ** 0.5 // 1)
+        original = Image.new('RGBA', (s, s))
+        original.putdata(list(self.sparsemap))
+        recolor = Image.new('RGBA', (s, s))
+        recolor.putdata(list(self.sparsemap.values()))
+        return original, recolor
+
+    def dumpMemoMap(self):
+        s = -int(-len(self.memomap) ** 0.5 // 1)
+        original = Image.new('RGBA', (s, s))
+        original.putdata(list(self.memomap))
+        recolor = Image.new('RGBA', (s, s))
+        recolor.putdata(list(self.memomap.values()))
+        return original, recolor
 
 if __name__ == '__main__':
     cm = ColorMap()
@@ -85,18 +101,10 @@ if __name__ == '__main__':
     # ]
     #
     # for png in pngs:
-    #     img = cm.applyColormap(Image.open('./ai/{}.png'.format(png)), (256, 256)).save('./ai2/{}.png'.format(png))
+    #     img = cm.applyColorMap(Image.open('./ai/{}.png'.format(png)), (256, 256)).save('./ai2/{}.png'.format(png))
 
 import time
 t0 = time.time()
-im = cm.applyColormap(Image.open('./ai/fight.png'))
+im = cm.applyColorMap(Image.open('./ai/fight.png'))
 print(time.time() - t0)
-im.save('./ai2/fight.png')
-
-s = -int(-len(cc.memomap) ** 0.5 // 1)
-j = Image.new('RGB', (s, s))
-j.putdata(list(cc.memomap.keys()))
-j.resize((1024, 1024), Image.NEAREST).save('ai2/cm0.png')
-k = Image.new('RGB', (s, s))
-k.putdata(list(cc.memomap.values()))
-k.resize((1024, 1024), Image.NEAREST).save('ai2/cm1.png')
+im
