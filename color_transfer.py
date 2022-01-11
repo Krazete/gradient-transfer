@@ -18,13 +18,9 @@ class ColorMap:
         assert original.size == recolor.size, 'images differ in size'
 
         for (r, g, b, a), (t, h, n, s) in zip(original.getdata(), recolor.getdata()):
-            w = min(a, s)
-            if w > 0:
-                self.tally.setdefault((r, g, b), [0, 0, 0, 0])
-                self.tally[(r, g, b)][0] += t * w
-                self.tally[(r, g, b)][1] += h * w
-                self.tally[(r, g, b)][2] += n * w
-                self.tally[(r, g, b)][3] += w
+            self.tally.setdefault((r, g, b), {})
+            self.tally[(r, g, b)].setdefault((t, h, n), 0)
+            self.tally[(r, g, b)][(t, h, n)] += min(a, s)
 
         if resetMaps:
             self.createMaps()
@@ -32,8 +28,14 @@ class ColorMap:
     def createMaps(self):
         self.sparsemap = {}
         for r, g, b in self.tally:
-            t, h, n, c = self.tally[(r, g, b)]
-            self.sparsemap[(r, g, b)] = (int(t / c), int(h / c), int(n / c))
+            y, j, m, w = 0, 0, 0, 0
+            for t, h, n in self.tally[(r, g, b)]:
+                weight = self.tally[(r, g, b)][(t, h, n)] # lower is smoother
+                y += t * weight
+                j += h * weight
+                m += n * weight
+                w += weight
+            self.sparsemap[(r, g, b)] = (int(y / w), int(j / w), int(m / w))
         self.sparsemap.setdefault((0, 0, 0), (0, 0, 0))
         self.sparsemap.setdefault((255, 255, 255), (255, 255, 255))
 
