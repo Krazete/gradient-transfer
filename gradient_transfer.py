@@ -1,6 +1,6 @@
 from PIL import Image
 
-def getColormap(image, size=None, justcompare=False):
+def getGradientMap(image, size=None, justcompare=False):
     gradient = image.convert('RGBA')
     if size:
         gradient = gradient.resize(size)
@@ -40,15 +40,14 @@ def getColormap(image, size=None, justcompare=False):
 
     if justcompare:
         swatch = Image.new('RGB', (256, 2), (0, 255, 0))
+        swatch.putdata(colormap)
         for i in sparsemap:
-            swatch.putpixel((i, 0), (*sparsemap[i], 255))
-        for i in range(256):
-            swatch.putpixel((i, 1), colormap[i])
+            swatch.putpixel((i, 1), (*sparsemap[i], 255))
         return swatch.resize((256, 256), Image.NEAREST)
 
     return colormap
 
-def applyColormap(image, colormap, size=None):
+def applyGradientMap(image, colormap, size=None):
     img = image.convert('RGBA')
     if size:
         img = img.resize(size)
@@ -58,8 +57,10 @@ def applyColormap(image, colormap, size=None):
     return img
 
 if __name__ == '__main__':
-    colormap = getColormap(Image.open('./GiftIcon_Gold.png'))
-    img = applyColormap(Image.open('./molly.png'), colormap)
-    # img.save('./mollygold.png')
+    pinkmap = getGradientMap(Image.open('./input/GiftIcon_Standard.png'))
+    goldmap = getGradientMap(Image.open('./input/GiftIcon_Gold.png'))
+    molly = Image.open('./input/molly.png')
+    applyGradientMap(molly, pinkmap).save('./output/mollypink2.png')
+    applyGradientMap(molly, goldmap).save('./output/mollygold2.png')
 
-# getColormap(Image.open('./parasoul.png'), (512, 512), justcompare=True)
+    # getGradientMap(Image.open('./input/2x2.png'), (16, 16), justcompare=True) # super sparse test
