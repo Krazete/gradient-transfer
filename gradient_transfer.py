@@ -59,8 +59,11 @@ def applyGradientMap(image, colormap, size=None):
 if __name__ == '__main__':
     pinkmap = getGradientMap(Image.open('./input/GiftIcon_Standard.png'))
     goldmap = getGradientMap(Image.open('./input/GiftIcon_Gold.png'))
+
     molly = Image.open('./input/molly.png')
-    applyGradientMap(molly, pinkmap).save('./output/mollypink2.png')
-    applyGradientMap(molly, goldmap).save('./output/mollygold2.png')
+    applyGradientMap(molly, pinkmap).save('./output/mollypink.png')
+    applyGradientMap(molly, goldmap).save('./output/mollygold.png')
+
+    # applyGradientMap(Image.open('./input/pol.png'), goldmap).save('./output/polgold.png')
 
     # getGradientMap(Image.open('./input/2x2.png'), (16, 16), justcompare=True) # super sparse test
