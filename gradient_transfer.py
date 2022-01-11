@@ -6,9 +6,10 @@ def getGradientMap(image, scale=1, justcompare=False):
 
     tally = {}
     for (r, g, b, a), i in zip(gradient.getdata(), gradienti.getdata()):
-        tally.setdefault(i, {})
-        tally[i].setdefault((r, g, b), 0)
-        tally[i][(r, g, b)] += a
+        if a > 0:
+            tally.setdefault(i, {})
+            tally[i].setdefault((r, g, b), 0)
+            tally[i][(r, g, b)] += a
 
     sparsemap = {}
     for i in tally:

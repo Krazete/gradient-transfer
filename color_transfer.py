@@ -18,12 +18,13 @@ class ColorMap:
         assert original.size == recolor.size, 'images differ in size'
 
         for (r, g, b, a), (t, h, n, s) in zip(original.getdata(), recolor.getdata()):
-            c = min(a, s)
-            self.tally.setdefault((r, g, b), [0, 0, 0, 0])
-            self.tally[(r, g, b)][0] += t * c
-            self.tally[(r, g, b)][1] += h * c
-            self.tally[(r, g, b)][2] += n * c
-            self.tally[(r, g, b)][3] += c
+            w = min(a, s)
+            if w > 0:
+                self.tally.setdefault((r, g, b), [0, 0, 0, 0])
+                self.tally[(r, g, b)][0] += t * w
+                self.tally[(r, g, b)][1] += h * w
+                self.tally[(r, g, b)][2] += n * w
+                self.tally[(r, g, b)][3] += w
 
         if resetMaps:
             self.createMaps()
