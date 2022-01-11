@@ -1,7 +1,7 @@
 from PIL import Image
 
 def getGradientMap(image, scale=1, justcompare=False):
-    gradient = image.resize((scale * image.width, scale * image.height)).convert('RGBA')
+    gradient = image.resize((int(scale * image.width), int(scale * image.height))).convert('RGBA')
     gradienti = gradient.convert('L')
 
     tally = {}
@@ -49,7 +49,7 @@ def getGradientMap(image, scale=1, justcompare=False):
     return gradientmap
 
 def applyGradientMap(image, gradientmap, scale=1):
-    img = image.resize((scale * image.width, scale * image.height)).convert('RGBA')
+    img = image.resize((int(scale * image.width), int(scale * image.height))).convert('RGBA')
     imgi = img.convert('L')
 
     img.putdata([(*gradientmap[i], a) for (r, g, b, a), i in zip(img.getdata(), imgi.getdata())])

@@ -6,17 +6,14 @@ class ColorMap:
         self.sparsemap = {}
         self.memomap = {}
 
-    def addMultiple(self, pairs, size=None):
+    def addMultiple(self, pairs, scale=1):
         for image0, image1 in pairs:
-            self.add(image0, image1, size, False)
+            self.add(image0, image1, scale, False)
         self.createMaps()
 
-    def add(self, image0, image1, size=None, resetMaps=True):
-        original = image0.convert('RGBA')
-        recolor = image1.convert('RGBA')
-        if size:
-            original = original.resize(size)
-            recolor = recolor.resize(size)
+    def add(self, image0, image1, scale=1, resetMaps=True):
+        original = image0.resize((int(scale * image0.width), int(scale * image0.height))).convert('RGBA')
+        recolor = image1.resize((int(scale * image1.width), int(scale * image1.height))).convert('RGBA')
 
         assert original.size == recolor.size, 'images differ in size'
 
@@ -39,10 +36,10 @@ class ColorMap:
         self.sparsemap.setdefault((0, 0, 0), (0, 0, 0))
         self.sparsemap.setdefault((255, 255, 255), (255, 255, 255))
 
-        power = 1 + len(self.sparsemap) / 262144
         self.memomap = self.sparsemap.copy()
 
     def getColor(self, r, g, b):
+        power = 1 + len(self.sparsemap) / 262144
         if (r, g, b) not in self.memomap:
             u, k, l, w = 0, 0, 0, 1
             for t, h, n in self.sparsemap: # todo: optimize this loop
@@ -55,10 +52,8 @@ class ColorMap:
             self.memomap[(r, g, b)] = (int(u / w), int(k / w), int (l / w))
         return self.memomap[(r, g, b)]
 
-    def applyColormap(self, image, size=None):
-        img = image.convert()
-        if size:
-            img = img.resize(size)
+    def applyColormap(self, image, scale=1):
+        img = image.resize((int(scale * image.width), int(scale * image.height))).convert('RGBA')
 
         img.putdata([(*self.getColor(r, g, b), a) for r, g, b, a in img.getdata()])
         return img
@@ -66,10 +61,9 @@ class ColorMap:
 if __name__ == '__main__':
     cm = ColorMap()
     cm.addMultiple([
-        (Image.open('./ai/unit_model_804_02_face_texture.png'), Image.open('./ai/unit_model_804_03_face_texture.png')),
-        (Image.open('./ai/unit_model_804_02_texture.png'), Image.open('./ai/unit_model_804_03_texture.png'))
-    ], (64, 64))
-    len(cm.memomap)
+        (Image.open('./input/ai/unit_model_804_02_face_texture.png'), Image.open('./input/ai/unit_model_804_03_face_texture.png')),
+        (Image.open('./input/ai/unit_model_804_02_texture.png'), Image.open('./input/ai/unit_model_804_03_texture.png'))
+    ])
 
     # pngs = [
     #     'CHaiA_body_dff_4k',
