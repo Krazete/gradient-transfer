@@ -13,7 +13,7 @@ def getGradientMap(image, scale=1, justcompare=False):
     for i in tally:
         t, h, n, w = 0, 0, 0, 0
         for r, g, b in tally[i]:
-            weight = tally[i][(r, g, b)] # weight = 1 works well too
+            weight = tally[i][(r, g, b)] # weight = 1 is smoother but more faded
             t += r * weight
             h += g * weight
             n += b * weight
