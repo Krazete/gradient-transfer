@@ -41,24 +41,60 @@ class ColorMap:
 
         self.memomap = self.sparsemap.copy()
 
-    def getColor(self, r, g, b):
-        power = 1 + len(self.sparsemap) / 262144
+    def getColor0(self, r, g, b): # 20 minutes
         if (r, g, b) not in self.memomap:
-            u, k, l, w = 0, 0, 0, 1
-            for t, h, n in self.sparsemap: # todo: optimize this loop
+            u, k, l, w = 0, 0, 0, 0
+            for t, h, n in self.sparsemap:
                 y, j, m = self.sparsemap[(t, h, n)]
-                weight = ((255 - abs(t - r)) ** 2 + (255 - abs(h - g)) ** 2 + (255 - abs(n - b)) ** 2) ** 100
+                weight = (765 - abs(t - r) - abs(h - g) - abs(n - b)) ** 128
                 u += y * weight
                 k += j * weight
                 l += m * weight
                 w += weight
+            w = max(1, w)
             self.memomap[(r, g, b)] = (int(u / w), int(k / w), int (l / w))
         return self.memomap[(r, g, b)]
 
-    def applyColorMap(self, image, scale=1):
+    def getColor1(self, r, g, b): # 13 minutes
+        if (r, g, b) not in self.memomap:
+            distancemap = {}
+            for t, h, n in self.sparsemap:
+                d = abs(t - r) + abs(h - g) + abs(n - b) # manhattan distance
+                distancemap.setdefault(d, [])
+                distancemap[d].append((t, h, n))
+            distances = list(distancemap)
+            distances.sort()
+            u, k, l, w = 0, 0, 0, 0
+            for d in distances[:16]:
+                for t, h, n in distancemap[d]:
+                    y, j, m = self.sparsemap[(t, h, n)]
+                    u += y
+                    k += j
+                    l += m
+                    w += 1
+            w = max(1, w)
+            self.memomap[(r, g, b)] = (int(u / w), int(k / w), int (l / w))
+        return self.memomap[(r, g, b)]
+
+    def getColor2(self, r, g, b): # 12 minutes
+        if (r, g, b) not in self.memomap:
+            distances = sorted(self.sparsemap, key=lambda rgb: abs(rgb[0] - r) + abs(rgb[1] - g) + abs(rgb[2] - b))
+            u, k, l, w = 0, 0, 0, 0
+            for t, h, n in distances[:len(distances) // 100]:
+                y, j, m = self.sparsemap[(t, h, n)]
+                u += y
+                k += j
+                l += m
+                w += 1
+            w = max(1, w)
+            self.memomap[(r, g, b)] = (int(u / w), int(k / w), int (l / w))
+        return self.memomap[(r, g, b)]
+
+    def applyColorMap(self, image, scale=1, method=1):
         img = image.resize((int(scale * image.width), int(scale * image.height))).convert('RGBA')
 
-        img.putdata([(*self.getColor(r, g, b), a) for r, g, b, a in img.getdata()])
+        getColor = [self.getColor0, self.getColor1, self.getColor2][method]
+        img.putdata([(*getColor(r, g, b), a) for r, g, b, a in img.getdata()])
         return img
 
     def dumpSparseMap(self):
@@ -82,7 +118,7 @@ if __name__ == '__main__':
     cm.addMultiple([
         (Image.open('./input/ai/unit_model_804_02_face_texture.png'), Image.open('./input/ai/unit_model_804_03_face_texture.png')),
         (Image.open('./input/ai/unit_model_804_02_texture.png'), Image.open('./input/ai/unit_model_804_03_texture.png'))
-    ])
+    ], 0.1)
 
     # pngs = [
     #     'CHaiA_body_dff_4k',
@@ -101,10 +137,24 @@ if __name__ == '__main__':
     # ]
     #
     # for png in pngs:
-    #     img = cm.applyColorMap(Image.open('./ai/{}.png'.format(png)), (256, 256)).save('./ai2/{}.png'.format(png))
+    #     img = cm.applyColorMap(Image.open('./input/ai/{}.png'.format(png)), (256, 256)).save('./output/ai/{}.png'.format(png))
 
 import time
+
 t0 = time.time()
-im = cm.applyColorMap(Image.open('./ai/fight.png'))
+im = cm.applyColorMap(Image.open('./input/ai/azur.png'), method=0)
 print(time.time() - t0)
-im
+im.save('./output/ai/azur0.png')
+cm.createMaps()
+
+t0 = time.time()
+im = cm.applyColorMap(Image.open('./input/ai/azur.png'), method=1)
+print(time.time() - t0)
+im.save('./output/ai/azur1.png')
+cm.createMaps()
+
+t0 = time.time()
+im = cm.applyColorMap(Image.open('./input/ai/azur.png'), method=2)
+print(time.time() - t0)
+im.save('./output/ai/azur2.png')
+cm.createMaps()
