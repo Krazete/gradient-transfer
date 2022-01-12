@@ -42,6 +42,7 @@ class ColorMap:
         self.memomap = self.sparsemap.copy()
 
     def getColor0(self, r, g, b): # 20 minutes
+        # sample all pixels scaled exponentially by distance
         if (r, g, b) not in self.memomap:
             u, k, l, w = 0, 0, 0, 0
             for t, h, n in self.sparsemap:
@@ -56,6 +57,7 @@ class ColorMap:
         return self.memomap[(r, g, b)]
 
     def getColor1(self, r, g, b): # 13 minutes
+        # sample the closest 16 pixels unscaled
         if (r, g, b) not in self.memomap:
             distancemap = {}
             for t, h, n in self.sparsemap:
@@ -77,6 +79,7 @@ class ColorMap:
         return self.memomap[(r, g, b)]
 
     def getColor2(self, r, g, b): # 12 minutes
+        # sample the closest 100th of the pixels
         if (r, g, b) not in self.memomap:
             distances = sorted(self.sparsemap, key=lambda rgb: abs(rgb[0] - r) + abs(rgb[1] - g) + abs(rgb[2] - b))
             u, k, l, w = 0, 0, 0, 0
@@ -90,10 +93,29 @@ class ColorMap:
             self.memomap[(r, g, b)] = (int(u / w), int(k / w), int (l / w))
         return self.memomap[(r, g, b)]
 
+    def getColor3(self, r, g, b):
+        # sample all pixels scaled exponentially by distance, or mirror the color if too far from the others
+        if (r, g, b) not in self.memomap:
+            u, k, l, w = 0, 0, 0, 0
+            for t, h, n in self.sparsemap:
+                d = abs(t - r) + abs(h - g) + abs(n - b)
+                if d < 64:
+                    y, j, m = self.sparsemap[(t, h, n)]
+                    weight = (765 - d) ** 128
+                    u += y * weight
+                    k += j * weight
+                    l += m * weight
+                    w += weight
+            if w > 0:
+                self.memomap[(r, g, b)] = (int(u / w), int(k / w), int (l / w))
+            else:
+                self.memomap[(r, g, b)] = (r, g, b)
+        return self.memomap[(r, g, b)]
+
     def applyColorMap(self, image, scale=1, method=1):
         img = image.resize((int(scale * image.width), int(scale * image.height))).convert('RGBA')
 
-        getColor = [self.getColor0, self.getColor1, self.getColor2][method]
+        getColor = [self.getColor0, self.getColor1, self.getColor2, self.getColor3][method]
         img.putdata([(*getColor(r, g, b), a) for r, g, b, a in img.getdata()])
         return img
 
