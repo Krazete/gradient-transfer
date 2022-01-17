@@ -140,43 +140,9 @@ if __name__ == '__main__':
     cm.addMultiple([
         (Image.open('./input/ai/unit_model_804_02_face_texture.png'), Image.open('./input/ai/unit_model_804_03_face_texture.png')),
         (Image.open('./input/ai/unit_model_804_02_texture.png'), Image.open('./input/ai/unit_model_804_03_texture.png'))
-    ], 0.1)
+    ], 0.04)
 
-    # pngs = [
-    #     'CHaiA_body_dff_4k',
-    #     'CHaiA_extraFaceParts_dff_4k',
-    #     'CHaiA_eye_dff_4k',
-    #     'CHaiA_eyeHighlight_dff_4k',
-    #     'CHaiA_face_dff_4k_mask',
-    #     'CHaiA_face_dff_4k',
-    #     'CHaiA_hand_dff_4k',
-    #     'CHaiA_mouth_dff_4k',
-    #     'CHaiA_pants_dff_4k',
-    #     'CHaiA_pyokopyoko_dff_4k',
-    #     'CHaiA_upCloth_dff_4k',
-    #     'hair1',
-    #     'hair2'
-    # ]
-    #
-    # for png in pngs:
-    #     img = cm.applyColorMap(Image.open('./input/ai/{}.png'.format(png)), (256, 256)).save('./output/ai/{}.png'.format(png))
-
-import time
-
-t0 = time.time()
-im = cm.applyColorMap(Image.open('./input/ai/azur.png'), method=0)
-print(time.time() - t0)
-im.save('./output/ai/azur0.png')
-cm.createMaps()
-
-t0 = time.time()
-im = cm.applyColorMap(Image.open('./input/ai/azur.png'), method=1)
-print(time.time() - t0)
-im.save('./output/ai/azur1.png')
-cm.createMaps()
-
-t0 = time.time()
-im = cm.applyColorMap(Image.open('./input/ai/azur.png'), method=2)
-print(time.time() - t0)
-im.save('./output/ai/azur2.png')
-cm.createMaps()
+    pngs = ['bottoms', 'eye', 'eye2', 'face', 'hair1', 'hair2', 'tops']
+    for png in pngs:
+        img = cm.applyColorMap(Image.open('./input/ai/pmx/{}.png'.format(png)))
+        img.save('./output/ai/pmx/{}.png'.format(png))
