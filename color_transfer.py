@@ -9,7 +9,7 @@ class ColorMap:
     def addMultiple(self, pairs, scale=1):
         for image0, image1 in pairs:
             self.add(image0, image1, scale, False)
-        self.createMaps()
+        self.initMaps()
 
     def add(self, image0, image1, scale=1, resetMaps=True):
         original = image0.resize((int(scale * image0.width), int(scale * image0.height))).convert('RGBA')
@@ -23,9 +23,9 @@ class ColorMap:
             self.tally[(r, g, b)][(t, h, n)] += min(a, s)
 
         if resetMaps:
-            self.createMaps()
+            self.initMaps()
 
-    def createMaps(self):
+    def initMaps(self):
         self.sparsemap = {}
         for r, g, b in self.tally:
             y, j, m, w = 0, 0, 0, 0
