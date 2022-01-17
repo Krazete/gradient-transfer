@@ -41,7 +41,30 @@ class ColorMap:
 
         self.memomap = self.sparsemap.copy()
 
-    def getColor0(self, r, g, b): # 20 minutes
+    def dumpSparseMap(self):
+        s = -int(-len(self.sparsemap) ** 0.5 // 1)
+        original = Image.new('RGBA', (s, s))
+        original.putdata(list(self.sparsemap))
+        recolor = Image.new('RGBA', (s, s))
+        recolor.putdata(list(self.sparsemap.values()))
+        return original, recolor
+
+    def dumpMemoMap(self):
+        s = -int(-len(self.memomap) ** 0.5 // 1)
+        original = Image.new('RGBA', (s, s))
+        original.putdata(list(self.memomap))
+        recolor = Image.new('RGBA', (s, s))
+        recolor.putdata(list(self.memomap.values()))
+        return original, recolor
+
+    def apply(self, image, scale=1, method=1):
+        img = image.resize((int(scale * image.width), int(scale * image.height))).convert('RGBA')
+
+        __getColor = [self.__getColor0, self.__getColor1, self.__getColor2, self.__getColor3, self.__getColor4][method]
+        img.putdata([(*__getColor(r, g, b), a) for r, g, b, a in img.getdata()])
+        return img
+
+    def __getColor0(self, r, g, b): # 20 minutes
         # sample all pixels scaled exponentially by distance
         if (r, g, b) not in self.memomap:
             u, k, l, w = 0, 0, 0, 0
@@ -56,7 +79,7 @@ class ColorMap:
             self.memomap[(r, g, b)] = (int(u / w), int(k / w), int (l / w))
         return self.memomap[(r, g, b)]
 
-    def getColor1(self, r, g, b): # 13 minutes
+    def __getColor1(self, r, g, b): # 13 minutes
         # sample the closest 16 pixels unscaled
         if (r, g, b) not in self.memomap:
             distancemap = {}
@@ -78,7 +101,7 @@ class ColorMap:
             self.memomap[(r, g, b)] = (int(u / w), int(k / w), int (l / w))
         return self.memomap[(r, g, b)]
 
-    def getColor2(self, r, g, b): # 12 minutes
+    def __getColor2(self, r, g, b): # 12 minutes
         # sample the closest 100th of the pixels
         if (r, g, b) not in self.memomap:
             distances = sorted(self.sparsemap, key=lambda rgb: abs(rgb[0] - r) + abs(rgb[1] - g) + abs(rgb[2] - b))
@@ -93,7 +116,7 @@ class ColorMap:
             self.memomap[(r, g, b)] = (int(u / w), int(k / w), int (l / w))
         return self.memomap[(r, g, b)]
 
-    def getColor3(self, r, g, b):
+    def __getColor3(self, r, g, b):
         # sample all pixels scaled exponentially by distance, or mirror the color if too far from the others
         if (r, g, b) not in self.memomap:
             u, k, l, w = 0, 0, 0, 0
@@ -112,37 +135,15 @@ class ColorMap:
                 self.memomap[(r, g, b)] = (r, g, b)
         return self.memomap[(r, g, b)]
 
-    def applyColorMap(self, image, scale=1, method=1):
-        img = image.resize((int(scale * image.width), int(scale * image.height))).convert('RGBA')
-
-        getColor = [self.getColor0, self.getColor1, self.getColor2, self.getColor3][method]
-        img.putdata([(*getColor(r, g, b), a) for r, g, b, a in img.getdata()])
-        return img
-
-    def dumpSparseMap(self):
-        s = -int(-len(self.sparsemap) ** 0.5 // 1)
-        original = Image.new('RGBA', (s, s))
-        original.putdata(list(self.sparsemap))
-        recolor = Image.new('RGBA', (s, s))
-        recolor.putdata(list(self.sparsemap.values()))
-        return original, recolor
-
-    def dumpMemoMap(self):
-        s = -int(-len(self.memomap) ** 0.5 // 1)
-        original = Image.new('RGBA', (s, s))
-        original.putdata(list(self.memomap))
-        recolor = Image.new('RGBA', (s, s))
-        recolor.putdata(list(self.memomap.values()))
-        return original, recolor
 
 if __name__ == '__main__':
     cm = ColorMap()
     cm.addMultiple([
         (Image.open('./input/ai/unit_model_804_02_face_texture.png'), Image.open('./input/ai/unit_model_804_03_face_texture.png')),
         (Image.open('./input/ai/unit_model_804_02_texture.png'), Image.open('./input/ai/unit_model_804_03_texture.png'))
-    ], 0.04)
+    ], 0.1)
 
     pngs = ['bottoms', 'eye', 'eye2', 'face', 'hair1', 'hair2', 'tops']
     for png in pngs:
-        img = cm.applyColorMap(Image.open('./input/ai/pmx/{}.png'.format(png)))
+        img = cm.apply(Image.open('./input/ai/pmx/{}.png'.format(png)))
         img.save('./output/ai/pmx/{}.png'.format(png))
