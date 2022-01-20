@@ -64,8 +64,8 @@ class ColorMap:
         img.putdata([(*__getColor(r, g, b), a) for r, g, b, a in img.getdata()])
         return img
 
-    def __getColor0(self, r, g, b): # 20 minutes
-        # sample all pixels scaled exponentially by distance
+    def __getColor0(self, r, g, b):
+        # weighted average of all sparsemap colors scaled exponentially by distance
         if (r, g, b) not in self.memomap:
             u, k, l, w = 0, 0, 0, 0
             for t, h, n in self.sparsemap:
@@ -79,8 +79,8 @@ class ColorMap:
             self.memomap[(r, g, b)] = (int(u / w), int(k / w), int (l / w))
         return self.memomap[(r, g, b)]
 
-    def __getColor1(self, r, g, b): # 13 minutes
-        # sample the closest 16 pixels unscaled
+    def __getColor1(self, r, g, b):
+        # sort sparsemap by distance and average the closest 16 colors (ties included)
         if (r, g, b) not in self.memomap:
             distancemap = {}
             for t, h, n in self.sparsemap:
@@ -102,7 +102,7 @@ class ColorMap:
         return self.memomap[(r, g, b)]
 
     def __getColor2(self, r, g, b): # 12 minutes
-        # sample the closest 100th of the pixels
+        # sort sparsemap by distance and average the closest 100th of the colors (ties not included)
         if (r, g, b) not in self.memomap:
             distances = sorted(self.sparsemap, key=lambda rgb: abs(rgb[0] - r) + abs(rgb[1] - g) + abs(rgb[2] - b))
             u, k, l, w = 0, 0, 0, 0
@@ -117,7 +117,7 @@ class ColorMap:
         return self.memomap[(r, g, b)]
 
     def __getColor3(self, r, g, b):
-        # sample all pixels scaled exponentially by distance, or mirror the color if too far from the others
+        # same as __getColor0, but return the input if it's not close enough to any sparsemap color
         if (r, g, b) not in self.memomap:
             u, k, l, w = 0, 0, 0, 0
             for t, h, n in self.sparsemap:
@@ -135,13 +135,30 @@ class ColorMap:
                 self.memomap[(r, g, b)] = (r, g, b)
         return self.memomap[(r, g, b)]
 
+    def __getColor4(self, r, g, b):
+        # find the closest sparsemap color in a single pass and average colors within a distance of 10 from that color
+        if (r, g, b) not in self.memomap:
+            u, k, l, w, f = 0, 0, 0, 0, 755
+            for t, h, n in self.sparsemap:
+                d = abs(t - r) + abs(h - g) + abs(n - b)
+                if f <= d <= f + 10:
+                    y, j, m = self.sparsemap[(t, h, n)]
+                    u += y
+                    k += j
+                    l += m
+                    w += 1
+                elif d < f:
+                    u, k, l = self.sparsemap[(t, h, n)]
+                    w, f = 1, d
+            self.memomap[(r, g, b)] = (int(u / w), int(k / w), int (l / w))
+        return self.memomap[(r, g, b)]
 
 if __name__ == '__main__':
     cm = ColorMap()
     cm.addMultiple([
         (Image.open('./input/ai/unit_model_804_02_face_texture.png'), Image.open('./input/ai/unit_model_804_03_face_texture.png')),
         (Image.open('./input/ai/unit_model_804_02_texture.png'), Image.open('./input/ai/unit_model_804_03_texture.png'))
-    ], 0.1)
+    ])
 
     pngs = ['bottoms', 'eye', 'eye2', 'face', 'hair1', 'hair2', 'tops']
     for png in pngs:
