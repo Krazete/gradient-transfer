@@ -80,15 +80,14 @@ class ColorMap:
         return self.memomap[(r, g, b)]
 
     def __getColor1(self, r, g, b):
-        # sort sparsemap by distance and average the closest 16 colors (ties included)
+        # group sparsemap colors by distance, sort to find the closest 16 groups, and average those
         if (r, g, b) not in self.memomap:
             distancemap = {}
             for t, h, n in self.sparsemap:
                 d = abs(t - r) + abs(h - g) + abs(n - b) # manhattan distance
                 distancemap.setdefault(d, [])
                 distancemap[d].append((t, h, n))
-            distances = list(distancemap)
-            distances.sort()
+            distances = sorted(distancemap)
             u, k, l, w = 0, 0, 0, 0
             for d in distances[:16]:
                 for t, h, n in distancemap[d]:
@@ -102,11 +101,12 @@ class ColorMap:
         return self.memomap[(r, g, b)]
 
     def __getColor2(self, r, g, b): # 12 minutes
-        # sort sparsemap by distance and average the closest 100th of the colors (ties not included)
+        # sort sparsemap colors by distance to find the closest 100th and average those
         if (r, g, b) not in self.memomap:
             distances = sorted(self.sparsemap, key=lambda rgb: abs(rgb[0] - r) + abs(rgb[1] - g) + abs(rgb[2] - b))
+            hundredth = max(1, len(distances) // 100)
             u, k, l, w = 0, 0, 0, 0
-            for t, h, n in distances[:len(distances) // 100]:
+            for t, h, n in distances[:hundredth]:
                 y, j, m = self.sparsemap[(t, h, n)]
                 u += y
                 k += j
@@ -116,27 +116,29 @@ class ColorMap:
             self.memomap[(r, g, b)] = (int(u / w), int(k / w), int (l / w))
         return self.memomap[(r, g, b)]
 
-    def __getColor3(self, r, g, b):
-        # same as __getColor0, but return the input if it's not close enough to any sparsemap color
+    def __getColor3(self, r, g, b, radius=16):
+        # same as __getColor0, but only using colors within a distance of 16 (double the distance if there are none)
         if (r, g, b) not in self.memomap:
             u, k, l, w = 0, 0, 0, 0
             for t, h, n in self.sparsemap:
                 d = abs(t - r) + abs(h - g) + abs(n - b)
-                if d < 64:
+                if d < radius:
                     y, j, m = self.sparsemap[(t, h, n)]
-                    weight = (765 - d) ** 128
+                    weight = (765 - d) ** 64
                     u += y * weight
                     k += j * weight
                     l += m * weight
                     w += weight
             if w > 0:
                 self.memomap[(r, g, b)] = (int(u / w), int(k / w), int (l / w))
+            elif radius < 765:
+                self.__getColor3(r, g, b, 2 * radius)
             else:
                 self.memomap[(r, g, b)] = (r, g, b)
         return self.memomap[(r, g, b)]
 
     def __getColor4(self, r, g, b):
-        # find the closest sparsemap color in a single pass and average colors within a distance of 10 from that color
+        # find the closest sparsemap color in a single pass and average colors within a distance of 10 from that
         if (r, g, b) not in self.memomap:
             u, k, l, w, f = 0, 0, 0, 0, 755
             for t, h, n in self.sparsemap:
