@@ -247,7 +247,6 @@ terr = Image.open('./input/ai/terribleautotranslation.png')
 game = Image.open('./input/ai/azurgamer.png')
 eleg = Image.open('./input/ai/azurelegant.png')
 
-saver = []
 for img in [terr, game, eleg]:
     scale = 300 / min(img.size)
     ttls = ['({}×{})'.format(*img.size)]
@@ -261,7 +260,6 @@ for img in [terr, game, eleg]:
         ttls.append('({}×{})'.format(*m.size))
         lbls.append('Method {}: {:.1f} seconds'.format(method, t1 - t0))
         imgs.append(m)
-        saver.append(m)
     show(imgs, ttls, lbls)
 ```
 
@@ -298,7 +296,6 @@ for i, scale in enumerate([1, 0.5, 0.1, 0.05, 0.01]):
     ttls.append('{} pixels'.format(len(cm.sparsemap)))
     lbls.append('Color Map {} (initialized with Input×{})'.format(i, scale))
     imgs.append(cm.dumpSparseMap()[0])
-    saver.append(cm.dumpSparseMap()[0])
 show(imgs, ttls, lbls)
 
 for img in [high, face, love]:
@@ -314,7 +311,6 @@ for img in [high, face, love]:
         ttls.append('({}×{})'.format(*m.size))
         lbls.append('Map {}: {:.1f} seconds'.format(i, t1 - t0))
         imgs.append(m)
-        saver.append(m)
     show(imgs, ttls, lbls)
 ```
 
@@ -326,7 +322,7 @@ for img in [high, face, love]:
 |Input|Map 0: 60.0 seconds|Map 1: 146.4 seconds|Map 2: 26.0 seconds|Map 3: 8.6 seconds|Map 4: 1.2 seconds|
 |-|-|-|-|-|-|
 |![high](./input/ai/highrangetest.png)|![high0](./readme/saver20.png)|![high1](./readme/saver21.png)|![high2](./readme/saver22.png)|![high3](./readme/saver23.png)|![high4](./readme/saver24.png)|
-|(X×X)|(X×X)|
+|(1650×1200)|(412×300)|(412×300)|(412×300)|(412×300)|(412×300)|
 
 |Input|Map 0: 0.7 seconds|Map 1: 1.5 seconds|Map 2: 0.3 seconds|Map 3: 0.2 seconds|Map 4: 0.1 seconds|
 |-|-|-|-|-|-|
@@ -356,7 +352,6 @@ for method in range(5):
         ttls.append('Method {} on Map {}'.format(method, i))
         lbls.append('{:.1f} seconds'.format(t1 - t0))
         imgs.append(m)
-        saver.append(m)
     show(imgs, ttls, lbls)
 ```
 
@@ -390,31 +385,3 @@ for method in range(5):
 ## Other Scripts
 - **gild_sprites.py** uses gradient_transfer.py to turn unpalettized Skullgirls Mobile portraits gold.
 - **color_storage_test.py** tests efficiency of different structures for color storage for color_transfer.py.
-
-```python
-# for the README.md copy
-goldgradient.save('./readme/goldgradient.png')
-goldmolly.save('./readme/goldmolly.png')
-pinkgradient.save('./readme/pinkgradient.png')
-ungrey.save('./readme/ungrey.png')
-pinkgradient2.save('./readme/pinkgradient2.png')
-ungrey2.save('./readme/ungrey2.png')
-polgradient.save('./readme/polgradient.png')
-polpol.save('./readme/polpol.png')
-k2bmapk.save('./readme/k2bmapk.png')
-k2bmapb.save('./readme/k2bmapb.png')
-b2kmapb.save('./readme/b2kmapb.png')
-b2kmapk.save('./readme/b2kmapk.png')
-k2bface.save('./readme/k2bface.png')
-k2bbody.save('./readme/k2bbody.png')
-b2kface.save('./readme/b2kface.png')
-b2kbody.save('./readme/b2kbody.png')
-k2bartist.save('./readme/k2bartist.png')
-b2kmelty.save('./readme/b2kmelty.png')
-k2bmapk2.save('./readme/k2bmapk2.png')
-k2bmapb2.save('./readme/k2bmapb2.png')
-b2kmapb2.save('./readme/b2kmapb2.png')
-b2kmapk2.save('./readme/b2kmapk2.png')
-for i, img in enumerate(saver):
-    img.save('./readme/saver{}.png'.format(i))
-```
