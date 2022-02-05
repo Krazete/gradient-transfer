@@ -36,7 +36,7 @@ print('Gold-Gift Gradient Map extracted in {:.3f} seconds and applied in {:.3f} 
 
 |GiftIcon_Gold.png|molly.png|gradient extracted from GiftIcon_Gold.png|gradient extracted from GiftIcon_Gold.png applied to molly.png|
 |-|-|-|-|
-|![goldgift](./input/GiftIcon_Gold.png)|![molly](./input/molly.png)|![goldgradient](./readme/goldgradient.png)|![goldmolly](./readme/goldmolly.png)|
+|<img src="./input/GiftIcon_Gold.png" width="100">|<img src="./input/molly.png" width="100">|<img src="./readme/goldgradient.png" width="100">|<img src="./readme/goldmolly.png" width="100">|
 |(210×256)|(128×128)|(256×256)|(128×128)|
 
 > Gold-Gift Gradient Map extracted in 0.036 seconds and applied in 0.010 seconds.
@@ -74,7 +74,7 @@ print('Scaled-Up-Pink-Gift Gradient Map extracted in {:.3f} seconds and applied 
 
 |GiftIcon_Standard.png|GiftIcon_Grey.png|gradient extracted from GiftIcon_Standard.png|gradient extracted from GiftIcon_Standard.png applied to GiftIcon_Grey.png|gradient extracted from GiftIcon_Standard.png scaled by 2|gradient extracted from GiftIcon_Standard.png scaled by 2 applied to GiftIcon_Grey.png|
 |-|-|-|-|-|-|
-|![pinkgift](./input/GiftIcon_Standard.png)|![greygift](./input/GiftIcon_Grey.png)|![pinkgradient](./readme/pinkgradient.png)|![ungrey](./readme/ungrey.png)|![pinkgradient2](./readme/pinkgradient2.png)|![ungrey2](./readme/ungrey2.png)
+|<img src="./input/GiftIcon_Standard.png" width="100">|<img src="./input/GiftIcon_Grey.png" width="100">|<img src="./readme/pinkgradient.png" width="100">|<img src="./readme/ungrey.png" width="100">|<img src="./readme/pinkgradient2.png" width="100">|<img src="./readme/ungrey2.png" width="100">
 |(210×256)|(210×256)|(256×256)|(210×256)|(256×256)|(210×256)|
 
 > Pink-Gift Gradient Map extracted in 0.047 seconds and applied in 0.054 seconds.  
@@ -102,7 +102,7 @@ print('Polka Gradient Map extracted in {:.3f} seconds and applied in {:.3f} seco
 
 |pol.png|gradient extracted from pol.png|gradient extracted from pol.png applied to pol.png|
 |-|-|-|
-|![pol](./input/pol.png)|![polgradient](./readme/polgradient.png)|![polpol](./readme/polpol.png)|
+|<img src="./input/pol.png" width="100">|<img src="./readme/polgradient.png" width="100">|<img src="./readme/polpol.png" width="100">|
 |(3061×3061)|(256×256)|(3061×3061)|
 
 > Polka Gradient Map extracted in 4.561 seconds and applied in 5.763 seconds.
@@ -142,12 +142,12 @@ print('Black-AI-to-Kizuna-AI Color Map (b2k) initialized in {:.3f} seconds.'.for
 
 |unit_model_804_02_face_texture.png (kface)|unit_model_804_02_texture.png (kbody)|unit_model_804_03_face_texture.png (bface)|unit_model_804_03_texture.png (bbody)|
 |-|-|-|-|
-|![kface](./input/ai/unit_model_804_02_face_texture.png)|![kbody](./input/ai/unit_model_804_02_texture.png)|![bface](./input/ai/unit_model_804_03_face_texture.png)|![bbody](./input/ai/unit_model_804_03_texture.png)|
+|<img src="./input/ai/unit_model_804_02_face_texture.png" width="100">|<img src="./input/ai/unit_model_804_02_texture.png" width="100">|<img src="./input/ai/unit_model_804_03_face_texture.png" width="100">|<img src="./input/ai/unit_model_804_03_texture.png" width="100">|
 |(512×512)|(512×512)|(512×512)|(512×512)|
 
 |all colors in kface+kbody|colors in bface+bbody corresponding to the colors in kface+kbody|all colors in bface+bbody|colors in kface+kbody corresponding to the colors in bface+bbody|
 |-|-|-|-|
-|![k2bmapk](./readme/k2bmapk.png)|![k2bmapb](./readme/k2bmapb.png)|![b2kmapb](./readme/b2kmapb.png)|![b2kmapk](./readme/b2kmapk.png)|
+|<img src="./readme/k2bmapk.png" width="100">|<img src="./readme/k2bmapb.png" width="100">|<img src="./readme/b2kmapb.png" width="100">|<img src="./readme/b2kmapk.png" width="100">|
 |(8219 pixels)|(8219 pixels)|(4309 pixels)|(4309 pixels)|
 
 > Kizuna-AI-to-Black-AI Color Map (k2b) initialized in 0.834 seconds.  
@@ -175,7 +175,7 @@ print('Two k2b and two b2k applications performed in {:.3f} seconds.'.format(t1 
 
 |k2b applied to kface|k2b applied to kbody|b2k applied to bface|b2k applied to bbody|
 |-|-|-|-|
-|![k2bface](./readme/k2bface.png)|![k2bbody](./readme/k2bbody.png)|![b2kface](./readme/b2kface.png)|![b2kbody](./readme/b2kbody.png)|
+|<img src="./readme/k2bface.png" width="100">|<img src="./readme/k2bbody.png" width="100">|<img src="./readme/b2kface.png" width="100">|<img src="./readme/b2kbody.png" width="100">|
 |(512×512)|(512×512)|(512×512)|(512×512)|
 
 > Two k2b and two b2k applications performed in 1.267 seconds.
@@ -214,12 +214,12 @@ print('b2k applied in {:.3f} seconds.'.format(t2 - t1))
 
 |artistprofile.png|k2b applied to artistprofile.png|meltyworld.png|b2k applied to meltyworld.png|
 |-|-|-|-|
-|![artist](./input/ai/artistprofile.png)|![k2bartist](./readme/k2bartist.png)|![melty](./input/ai/meltyworld.png)|![b2kmelty](./readme/b2kmelty.png)|
+|<img src="./input/ai/artistprofile.png" width="100">|<img src="./readme/k2bartist.png" width="100">|<img src="./input/ai/meltyworld.png" width="100">|<img src="./readme/b2kmelty.png" width="100">|
 |(800×1000)|(216×270)|(576×720)|(216×270)|
 
 |all colors in kface+kbody plus artistprofile.png|corresponding colors in bface+bbody plus colors mapped from artistprofile|all colors in bface+bbody plus meltyworld.png|corresponding colors in kface+kbody plus colors mapped from meltyworld|
 |-|-|-|-|
-|![k2bmapk2](./readme/k2bmapk2.png)|![k2bmapb2](./readme/k2bmapb2.png)|![b2kmapb2](./readme/b2kmapb2.png)|![b2kmapk2](./readme/b2kmapk2.png)|
+|<img src="./readme/k2bmapk2.png" width="100">|<img src="./readme/k2bmapb2.png" width="100">|<img src="./readme/b2kmapb2.png" width="100">|<img src="./readme/b2kmapk2.png" width="100">|
 |(40689 pixels)|(40689 pixels)|(25535 pixels)|(25535 pixels)|
 
 > k2b applied in 196.144 seconds.  
@@ -265,17 +265,17 @@ for img in [terr, game, eleg]:
 
 |Input|Method 0: 422.8 seconds|Method 1: 139.8 seconds|Method 2: 105.8 seconds|Method 3: 59.3 seconds|Method 4: 63.5 seconds|
 |-|-|-|-|-|-|
-|![terr](./input/ai/terribleautotranslation.png)|![terr0](./readme/saver0.png)|![terr1](./readme/saver1.png)|![terr2](./readme/saver2.png)|![terr3](./readme/saver3.png)|![terr4](./readme/saver4.png)|
+|<img src="./input/ai/terribleautotranslation.png" width="100">|<img src="./readme/saver0.png" width="100">|<img src="./readme/saver1.png" width="100">|<img src="./readme/saver2.png" width="100">|<img src="./readme/saver3.png" width="100">|<img src="./readme/saver4.png" width="100">|
 |(666×1184)|(300×533)|(300×533)|(300×533)|(300×533)|(300×533)|
 
 |Input|Method 0: 974.1 seconds|Method 1: 273.6 seconds|Method 2: 213.4 seconds|Method 3: 155.7 seconds|Method 4: 144.0 seconds|
 |-|-|-|-|-|-|
-|![game](./input/ai/azurgamer.png)|![game0](./readme/saver5.png)|![game1](./readme/saver6.png)|![game2](./readme/saver7.png)|![game3](./readme/saver8.png)|![game4](./readme/saver9.png)|
+|<img src="./input/ai/azurgamer.png" width="100">|<img src="./readme/saver5.png" width="100">|<img src="./readme/saver6.png" width="100">|<img src="./readme/saver7.png" width="100">|<img src="./readme/saver8.png" width="100">|<img src="./readme/saver9.png" width="100">|
 |(161×215)|(300×400)|(300×400)|(300×400)|(300×400)|(300×400)|
 
 |Input|Method 0: 736.0 seconds|Method 1: 209.4 seconds|Method 2: 165.4 seconds|Method 3: 92.4 seconds|Method 4: 112.2 seconds|
 |-|-|-|-|-|-|
-|![eleg](./input/ai/azurelegant.png)|![eleg0](./readme/saver10.png)|![eleg1](./readme/saver11.png)|![eleg2](./readme/saver12.png)|![eleg3](./readme/saver13.png)|![eleg4](./readme/saver14.png)|
+|<img src="./input/ai/azurelegant.png" width="100">|<img src="./readme/saver10.png" width="100">|<img src="./readme/saver11.png" width="100">|<img src="./readme/saver12.png" width="100">|<img src="./readme/saver13.png" width="100">|<img src="./readme/saver14.png" width="100">|
 |(161×215)|(300×400)|(300×400)|(300×400)|(300×400)|(300×400)|
 
 Another way to reduce the execution time of color map application is by scaling down the images used in initialization. Unlike gradient_transfer.py, scaling down the initialization images does not downgrade the color map too much and may even provide better results.
@@ -316,22 +316,22 @@ for img in [high, face, love]:
 
 |Color Map 0 (initialized with Input×1)|Color Map 1 (initialized with Input×0.5)|Color Map 2 (initialized with Input×0.1)|Color Map 3 (initialized with Input×0.05)|Color Map 4 (initialized with Input×0.01)|
 |-|-|-|-|-|
-|![cm0](./readme/saver15.png)|![cm1](./readme/saver16.png)|![cm2](./readme/saver17.png)|![cm3](./readme/saver18.png)|![cm4](./readme/saver19.png)|
+|<img src="./readme/saver15.png" width="100">|<img src="./readme/saver16.png" width="100">|<img src="./readme/saver17.png" width="100">|<img src="./readme/saver18.png" width="100">|<img src="./readme/saver19.png" width="100">|
 |8219 pixels|21624 pixels|3345 pixels|979 pixels|52 pixels|
 
 |Input|Map 0: 60.0 seconds|Map 1: 146.4 seconds|Map 2: 26.0 seconds|Map 3: 8.6 seconds|Map 4: 1.2 seconds|
 |-|-|-|-|-|-|
-|![high](./input/ai/highrangetest.png)|![high0](./readme/saver20.png)|![high1](./readme/saver21.png)|![high2](./readme/saver22.png)|![high3](./readme/saver23.png)|![high4](./readme/saver24.png)|
+|<img src="./input/ai/highrangetest.png" width="100">|<img src="./readme/saver20.png" width="100">|<img src="./readme/saver21.png" width="100">|<img src="./readme/saver22.png" width="100">|<img src="./readme/saver23.png" width="100">|<img src="./readme/saver24.png" width="100">|
 |(1650×1200)|(412×300)|(412×300)|(412×300)|(412×300)|(412×300)|
 
 |Input|Map 0: 0.7 seconds|Map 1: 1.5 seconds|Map 2: 0.3 seconds|Map 3: 0.2 seconds|Map 4: 0.1 seconds|
 |-|-|-|-|-|-|
-|![face](./input/ai/expressions.png)|![face0](./readme/saver25.png)|![face1](./readme/saver26.png)|![face2](./readme/saver27.png)|![face3](./readme/saver28.png)|![face4](./readme/saver29.png)|
+|<img src="./input/ai/expressions.png" width="100">|<img src="./readme/saver25.png" width="100">|<img src="./readme/saver26.png" width="100">|<img src="./readme/saver27.png" width="100">|<img src="./readme/saver28.png" width="100">|<img src="./readme/saver29.png" width="100">|
 |(1000×1000)|(300×300)|(300×300)|(300×300)|(300×300)|(300×300)|
 
 |Input|Map 0: 135.8 seconds|Map 1: 369.7 seconds|Map 2: 65.9 seconds|Map 3: 22.4 seconds|Map 4: 2.1 seconds|
 |-|-|-|-|-|-|
-|![love](./input/ai/love.png)|![love0](./readme/saver30.png)|![love1](./readme/saver31.png)|![love2](./readme/saver32.png)|![love3](./readme/saver33.png)|![love4](./readme/saver34.png)|
+|<img src="./input/ai/love.png" width="100">|<img src="./readme/saver30.png" width="100">|<img src="./readme/saver31.png" width="100">|<img src="./readme/saver32.png" width="100">|<img src="./readme/saver33.png" width="100">|<img src="./readme/saver34.png" width="100">|
 |(400×600)|(300×450)|(300×450)|(300×450)|(300×450)|(300×450)|
 
 (I assume the increase in initialized colors in Map 1 is due to the resampling filter.)
@@ -359,27 +359,27 @@ for method in range(5):
 
 |Method 0 on Map 0|Method 0 on Map 1|Method 0 on Map 2|Method 0 on Map 3|Method 0 on Map 4|
 |-|-|-|-|-|
-|![m0m0](./readme/saver35.png)|![m0m1](./readme/saver36.png)|![m0m2](./readme/saver37.png)|![m0m3](./readme/saver38.png)|![m0m4](./readme/saver39.png)|
+|<img src="./readme/saver35.png" width="100">|<img src="./readme/saver36.png" width="100">|<img src="./readme/saver37.png" width="100">|<img src="./readme/saver38.png" width="100">|<img src="./readme/saver39.png" width="100">|
 |572.7 seconds|1511.5 seconds|231.3 seconds|68.0 seconds|3.7 seconds|
 
 |Method 1 on Map 0|Method 1 on Map 1|Method 1 on Map 2|Method 1 on Map 3|Method 1 on Map 4|
 |-|-|-|-|-|
-|![m1m0](./readme/saver40.png)|![m1m1](./readme/saver41.png)|![m1m2](./readme/saver42.png)|![m1m3](./readme/saver43.png)|![m1m4](./readme/saver44.png)|
+|<img src="./readme/saver40.png" width="100">|<img src="./readme/saver41.png" width="100">|<img src="./readme/saver42.png" width="100">|<img src="./readme/saver43.png" width="100">|<img src="./readme/saver44.png" width="100">|
 |162.0 seconds|412.2 seconds|65.1 seconds|16.4 seconds|1.2 seconds|
 
 |Method 2 on Map 0|Method 2 on Map 1|Method 2 on Map 2|Method 2 on Map 3|Method 2 on Map 4|
 |-|-|-|-|-|
-|![m2m0](./readme/saver45.png)|![m2m1](./readme/saver46.png)|![m2m2](./readme/saver47.png)|![m2m3](./readme/saver48.png)|![m2m4](./readme/saver49.png)|
+|<img src="./readme/saver45.png" width="100">|<img src="./readme/saver46.png" width="100">|<img src="./readme/saver47.png" width="100">|<img src="./readme/saver48.png" width="100">|<img src="./readme/saver49.png" width="100">|
 |130.3 seconds|345.1 seconds|51.5 seconds|14.7 seconds|0.8 seconds|
 
 |Method 3 on Map 0|Method 3 on Map 1|Method 3 on Map 2|Method 3 on Map 3|Method 3 on Map 4|
 |-|-|-|-|-|
-|![m3m0](./readme/saver50.png)|![m3m1](./readme/saver51.png)|![m3m2](./readme/saver52.png)|![m3m3](./readme/saver53.png)|![m3m4](./readme/saver54.png)|
+|<img src="./readme/saver50.png" width="100">|<img src="./readme/saver51.png" width="100">|<img src="./readme/saver52.png" width="100">|<img src="./readme/saver53.png" width="100">|<img src="./readme/saver54.png" width="100">|
 |75.9 seconds|204.8 seconds|41.5 seconds|14.0 seconds|1.4 seconds|
 
 |Method 4 on Map 0|Method 4 on Map 1|Method 4 on Map 2|Method 4 on Map 3|Method 4 on Map 4|
 |-|-|-|-|-|
-|![m4m0](./readme/saver55.png)|![m4m1](./readme/saver56.png)|![m4m2](./readme/saver57.png)|![m4m3](./readme/saver58.png)|![m4m4](./readme/saver59.png)|
+|<img src="./readme/saver55.png" width="100">|<img src="./readme/saver56.png" width="100">|<img src="./readme/saver57.png" width="100">|<img src="./readme/saver58.png" width="100">|<img src="./readme/saver59.png" width="100">|
 |88.8 seconds|229.6 seconds|35.9 seconds|10.7 seconds|0.7 seconds|
 
 ## Other Scripts
