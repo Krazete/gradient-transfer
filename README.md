@@ -168,12 +168,12 @@ for img in [terr, ap19]:
         k2b.apply(img, scale, method).show()
 ```
 
-|Input|Method 0: 422.8 seconds|Method 1: 139.8 seconds|Method 2: 105.8 seconds|Method 3: 59.3 seconds|Method 4: 63.5 seconds|
+|Input|Method 0: 400.5 seconds|Method 1: 119.0 seconds|Method 2: 92.0 seconds|Method 3: 56.2 seconds|Method 4: 63.8 seconds|
 |-|-|-|-|-|-|
 |<img src="./input/ai/terribleautotranslation.png" width="300">|<img src="./readme/saver0.png">|<img src="./readme/saver1.png">|<img src="./readme/saver2.png">|<img src="./readme/saver3.png">|<img src="./readme/saver4.png">|
 |(666×1184)|(300×533)|(300×533)|(300×533)|(300×533)|(300×533)|
 
-|Input|Method 0: 736.0 seconds|Method 1: 209.4 seconds|Method 2: 165.4 seconds|Method 3: 92.4 seconds|Method 4: 112.2 seconds|
+|Input|Method 0: 1135.6 seconds|Method 1: 326.3 seconds|Method 2: 251.1 seconds|Method 3: 168.2 seconds|Method 4: 170.4 seconds|
 |-|-|-|-|-|-|
 |<img src="./input/ai/aiparty2019.png" width="300">|<img src="./readme/saver5.png">|<img src="./readme/saver6.png">|<img src="./readme/saver7.png">|<img src="./readme/saver8.png">|<img src="./readme/saver9.png">|
 |(161×215)|(300×400)|(300×400)|(300×400)|(300×400)|(300×400)|
@@ -202,12 +202,12 @@ for img in [high, love]:
 |<img src="./readme/saver10.png" width="256">|<img src="./readme/saver11.png" width="256">|<img src="./readme/saver12.png" width="256">|<img src="./readme/saver13.png" width="256">|<img src="./readme/saver14.png" width="256">|
 |8219 pixels|21624 pixels|3345 pixels|979 pixels|52 pixels|
 
-|Input|Map 0: 60.0 seconds|Map 1: 146.4 seconds|Map 2: 26.0 seconds|Map 3: 8.6 seconds|Map 4: 1.2 seconds|
+|Input|Map 0: 60.1 seconds|Map 1: 147.3 seconds|Map 2: 26.0 seconds|Map 3: 8.7 seconds|Map 4: 1.2 seconds|
 |-|-|-|-|-|-|
 |<img src="./input/ai/highrangetest.png" width="300">|<img src="./readme/saver15.png">|<img src="./readme/saver16.png">|<img src="./readme/saver17.png">|<img src="./readme/saver18.png">|<img src="./readme/saver19.png">|
 |(1650×1200)|(412×300)|(412×300)|(412×300)|(412×300)|(412×300)|
 
-|Input|Map 0: 135.8 seconds|Map 1: 369.7 seconds|Map 2: 65.9 seconds|Map 3: 22.4 seconds|Map 4: 2.1 seconds|
+|Input|Map 0: 135.9 seconds|Map 1: 370.1 seconds|Map 2: 65.5 seconds|Map 3: 22.0 seconds|Map 4: 2.1 seconds|
 |-|-|-|-|-|-|
 |<img src="./input/ai/love.png" width="300">|<img src="./readme/saver20.png">|<img src="./readme/saver21.png">|<img src="./readme/saver22.png">|<img src="./readme/saver23.png">|<img src="./readme/saver24.png">|
 |(400×600)|(300×450)|(300×450)|(300×450)|(300×450)|(300×450)|
