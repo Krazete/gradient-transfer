@@ -34,10 +34,12 @@ show(
 print('Gold-Gift Gradient Map extracted in {:.3f} seconds and applied in {:.3f} seconds.'.format(t1 - t0, t2 - t1))
 ```
 
-|![GiftIcon_Gold.png](./input/GiftIcon_Gold.png)|molly image|gold gradient| gold molly|
+|![goldgift](./input/GiftIcon_Gold.png)|![molly](./input/molly.png)|![goldgradient](./readme/goldgradient.png)|![goldmolly](./readme/goldmolly.png)|
 |-|-|-|-|
-|(210×256)|(128×128)|(256×256)|(128×128)|
 |GiftIcon_Gold.png|molly.png|gradient extracted from GiftIcon_Gold.png|gradient extracted from GiftIcon_Gold.png applied to molly.png|
+|(210×256)|(128×128)|(256×256)|(128×128)|
+
+> Gold-Gift Gradient Map extracted in 0.036 seconds and applied in 0.010 seconds.
 
 Any missing intensity values are filled in by taking a weighted average of the existing intensity values scaled exponentially by similarity (distance in the gradient).
 
@@ -70,6 +72,14 @@ print('Pink-Gift Gradient Map extracted in {:.3f} seconds and applied in {:.3f} 
 print('Scaled-Up-Pink-Gift Gradient Map extracted in {:.3f} seconds and applied in {:.3f} seconds.'.format(t3 - t2, t4 - t3))
 ```
 
+|GiftIcon_Standard.png|GiftIcon_Grey.png|gradient extracted from GiftIcon_Standard.png|gradient extracted from GiftIcon_Standard.png applied to GiftIcon_Grey.png|gradient extracted from GiftIcon_Standard.png scaled by 2|gradient extracted from GiftIcon_Standard.png scaled by 2 applied to GiftIcon_Grey.png|
+|-|-|-|-|-|-|
+|![pinkgift](./input/GiftIcon_Standard.png)|![greygift](./input/GiftIcon_Grey.png)|![pinkgradient](./readme/pinkgradient.png)|![ungrey](./readme/ungrey.png)|![pinkgradient2](./readme/pinkgradient2.png)|![ungrey2](./readme/ungrey2.png)
+|(210×256)|(210×256)|(256×256)|(210×256)|(256×256)|(210×256)|
+
+> Pink-Gift Gradient Map extracted in 0.047 seconds and applied in 0.054 seconds.  
+> Scaled-Up-Pink-Gift Gradient Map extracted in 0.157 seconds and applied in 0.025 seconds.
+
 Since there are only 256 intensity values, inputs with larger image dimensions should affect the execution time of gradient extraction and application by a few seconds at most. The runtime scales linearly, proportional to the number of pixels in the image.
 
 ```python
@@ -89,6 +99,13 @@ show(
 )
 print('Polka Gradient Map extracted in {:.3f} seconds and applied in {:.3f} seconds.'.format(t1 - t0, t2 - t1))
 ```
+
+|pol.png|gradient extracted from pol.png|gradient extracted from pol.png applied to pol.png|
+|-|-|-|
+|![pol](./input/pol.png)|![polgradient](./readme/polgradient.png)|![polpol](./readme/polpol.png)|
+|(3061×3061)|(256×256)|(3061×3061|
+
+> Polka Gradient Map extracted in 4.561 seconds and applied in 5.763 seconds.
 
 ## color_transfer.py
 This takes two color variations of an image to create a correspondence mapping that can be applied to similarly colored images.
@@ -123,6 +140,11 @@ print('Kizuna-AI-to-Black-AI Color Map (k2b) initialized in {:.3f} seconds.'.for
 print('Black-AI-to-Kizuna-AI Color Map (b2k) initialized in {:.3f} seconds.'.format(t2 - t1))
 ```
 
+|||
+
+> Kizuna-AI-to-Black-AI Color Map (k2b) initialized in 0.834 seconds.  
+> Black-AI-to-Kizuna-AI Color Map (b2k) initialized in 0.779 seconds.
+
 With the large amount of time it takes to apply a color map, it's a good idea to check quality before proceeding. To do so, simply apply the color map to its reference image(s) and compare. This is the quickest way since there aren't any new colors to calculate; it's a mere dictionary call for every pixel.
 
 The results below for k2b look decent, but b2k does not. Although disappointing, it would be better to abandon b2k now.
@@ -142,6 +164,10 @@ show(
 )
 print('Two k2b and two b2k applications performed in {:.3f} seconds.'.format(t1 - t0))
 ```
+
+|||
+
+> Two k2b and two b2k applications performed in 1.267 seconds.
 
 Unlike gradient_transfer.py which has just 256 intensity values to store, color_transfer.py has to deal with 256³ = 16,777,216 possible color values.
 
@@ -174,6 +200,11 @@ show(
 print('k2b applied in {:.3f} seconds.'.format(t1 - t0))
 print('b2k applied in {:.3f} seconds.'.format(t2 - t1))
 ```
+
+|||
+
+> k2b applied in 196.144 seconds.  
+> b2k applied in 66.446 seconds.
 
 I went through several iterations to try to reduce the amount of time needed to estimate a color mapping. These are available upon application as methods 0-4.
 
@@ -215,6 +246,8 @@ for img in [terr, game, eleg]:
     show(imgs, ttls, lbls)
 ```
 
+|||
+
 Another way to reduce the execution time of color map application is by scaling down the images used in initialization. Unlike gradient_transfer.py, scaling down the initialization images does not downgrade the color map too much and may even provide better results.
 
 ```python
@@ -253,6 +286,8 @@ for img in [high, face, love]:
     show(imgs, ttls, lbls)
 ```
 
+|||
+
 (I assume the increase in initialized colors in Map 1 is due to the resampling filter.)
 
 Now let's try all methods and all scales shown above applied to the artist profile picture to see how the script handles an image with a slightly different color palette.
@@ -274,6 +309,10 @@ for method in range(5):
         saver.append(m)
     show(imgs, ttls, lbls)
 ```
+
+> All images below are of size (216×270).
+
+|||
 
 ## Other Scripts
 - **gild_sprites.py** uses gradient_transfer.py to turn unpalettized Skullgirls Mobile portraits gold.
