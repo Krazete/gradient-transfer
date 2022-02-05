@@ -363,27 +363,27 @@ for method in range(5):
 > All images below are of size (216×270).
 
 |Method 0 on Map 0|Method 0 on Map 1|Method 0 on Map 2|Method 0 on Map 3|Method 0 on Map 4|
-|-|-|-|-|-|-|
+|-|-|-|-|-|
 |![m0m0](./readme/saver35.png)|![m0m1](./readme/saver36.png)|![m0m2](./readme/saver37.png)|![m0m3](./readme/saver38.png)|![m0m4](./readme/saver39.png)|
 |572.7 seconds|1511.5 seconds|231.3 seconds|68.0 seconds|3.7 seconds|
 
 |Method 1 on Map 0|Method 1 on Map 1|Method 1 on Map 2|Method 1 on Map 3|Method 1 on Map 4|
-|-|-|-|-|-|-|
+|-|-|-|-|-|
 |![m1m0](./readme/saver40.png)|![m1m1](./readme/saver41.png)|![m1m2](./readme/saver42.png)|![m1m3](./readme/saver43.png)|![m1m4](./readme/saver44.png)|
 |162.0 seconds|412.2 seconds|65.1 seconds|16.4 seconds|1.2 seconds|
 
 |Method 2 on Map 0|Method 2 on Map 1|Method 2 on Map 2|Method 2 on Map 3|Method 2 on Map 4|
-|-|-|-|-|-|-|
+|-|-|-|-|-|
 |![m2m0](./readme/saver45.png)|![m2m1](./readme/saver46.png)|![m2m2](./readme/saver47.png)|![m2m3](./readme/saver48.png)|![m2m4](./readme/saver49.png)|
 |130.3 seconds|345.1 seconds|51.5 seconds|14.7 seconds|0.8 seconds|
 
 |Method 3 on Map 0|Method 3 on Map 1|Method 3 on Map 2|Method 3 on Map 3|Method 3 on Map 4|
-|-|-|-|-|-|-|
+|-|-|-|-|-|
 |![m3m0](./readme/saver50.png)|![m3m1](./readme/saver51.png)|![m3m2](./readme/saver52.png)|![m3m3](./readme/saver53.png)|![m3m4](./readme/saver54.png)|
 |75.9 seconds|204.8 seconds|41.5 seconds|14.0 seconds|1.4 seconds|
 
 |Method 4 on Map 0|Method 4 on Map 1|Method 4 on Map 2|Method 4 on Map 3|Method 4 on Map 4|
-|-|-|-|-|-|-|
+|-|-|-|-|-|
 |![m4m0](./readme/saver55.png)|![m4m1](./readme/saver56.png)|![m4m2](./readme/saver57.png)|![m4m3](./readme/saver58.png)|![m4m4](./readme/saver59.png)|
 |88.8 seconds|229.6 seconds|35.9 seconds|10.7 seconds|0.7 seconds|
 
