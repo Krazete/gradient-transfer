@@ -3,6 +3,8 @@ An experiment with intensity-based and correspondence-based color transfer.
 
 *Note: This markdown file contains abbreviated code segments. All lines pertaining to the display of runtimes and tables have been removed. Tables have also been modified to improve the layout. For the original version of this document, see README.ipynb.*
 
+*Note 2: The output folder contains a few extra examples which are not included in the README.*
+
 ```python
 from PIL import Image
 from gradient_transfer import getGradientMap, applyGradientMap
