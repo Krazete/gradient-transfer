@@ -25,7 +25,7 @@ goldmolly = applyGradientMap(molly, goldmap)
 |<img src="./input/GiftIcon_Gold.png" width="256">|<img src="./input/molly.png" width="256">|<img src="./readme/goldgradient.png">|<img src="./readme/goldmolly.png" width="256">|
 |(210×256)|(128×128)|(256×256)|(128×128)|
 
-> Gold-Gift Gradient Map extracted in 0.036 seconds and applied in 0.010 seconds.
+> Gold-Gift Gradient Map extracted in 0.040 seconds and applied in 0.010 seconds.
 
 Any missing intensity values are filled in by taking a weighted average of the existing intensity values scaled exponentially by similarity (distance in the gradient).
 
@@ -48,8 +48,8 @@ ungrey2 = applyGradientMap(greygift, pinkmap2)
 |<img src="./input/GiftIcon_Standard.png" width="256">|<img src="./input/GiftIcon_Grey.png" width="256">|<img src="./readme/pinkgradient.png">|<img src="./readme/ungrey.png" width="256">|<img src="./readme/pinkgradient2.png">|<img src="./readme/ungrey2.png" width="256">
 |(210×256)|(210×256)|(256×256)|(210×256)|(256×256)|(210×256)|
 
-> Pink-Gift Gradient Map extracted in 0.047 seconds and applied in 0.054 seconds.  
-> Scaled-Up-Pink-Gift Gradient Map extracted in 0.157 seconds and applied in 0.025 seconds.
+> Pink-Gift Gradient Map extracted in 0.050 seconds and applied in 0.065 seconds.  
+> Scaled-Up-Pink-Gift Gradient Map extracted in 0.149 seconds and applied in 0.025 seconds.
 
 Since there are only 256 intensity values, inputs with larger image dimensions should affect the execution time of gradient extraction and application by a few seconds at most. The runtime scales linearly, proportional to the number of pixels in the image.
 
@@ -65,7 +65,7 @@ polpol = applyGradientMap(pol, polmap)
 |<img src="./input/pol.png" width="512">|<img src="./readme/polgradient.png">|<img src="./readme/polpol.png" width="512">|
 |(3061×3061)|(256×256)|(3061×3061)|
 
-> Polka Gradient Map extracted in 4.561 seconds and applied in 5.763 seconds.
+> Polka Gradient Map extracted in 4.729 seconds and applied in 5.174 seconds.
 
 ## color_transfer.py
 This takes two color variations of an image to create a correspondence mapping that can be applied to similarly colored images.
@@ -92,8 +92,8 @@ b2k.addMultiple([(bface, kface), (bbody, kbody)])
 |<img src="./readme/k2bmapk.png" width="256">|<img src="./readme/k2bmapb.png" width="256">|<img src="./readme/b2kmapb.png" width="256">|<img src="./readme/b2kmapk.png" width="256">|
 |(8219 pixels)|(8219 pixels)|(4309 pixels)|(4309 pixels)|
 
-> Kizuna-AI-to-Black-AI Color Map (k2b) initialized in 0.834 seconds.  
-> Black-AI-to-Kizuna-AI Color Map (b2k) initialized in 0.779 seconds.
+> Kizuna-AI-to-Black-AI Color Map (k2b) initialized in 0.783 seconds.  
+> Black-AI-to-Kizuna-AI Color Map (b2k) initialized in 0.696 seconds.
 
 With the large amount of time it takes to apply a color map, it's a good idea to check quality before proceeding. To do so, simply apply the color map to its reference image(s) and compare. This is the quickest way since there aren't any new colors to calculate; it's a mere dictionary call for every pixel.
 
@@ -111,7 +111,7 @@ b2kbody = b2k.apply(bbody)
 |<img src="./readme/k2bface.png">|<img src="./readme/k2bbody.png">|<img src="./readme/b2kface.png">|<img src="./readme/b2kbody.png">|
 |(512×512)|(512×512)|(512×512)|(512×512)|
 
-> Two k2b and two b2k applications performed in 1.267 seconds.
+> Two k2b and two b2k applications performed in 0.807 seconds.
 
 Unlike gradient_transfer.py which has just 256 intensity values to store, color_transfer.py has to deal with 256³ = 16,777,216 possible color values.
 
@@ -137,8 +137,8 @@ b2kmelty = b2k.apply(melty, 0.375)
 |<img src="./readme/k2bmapk2.png" width="256">|<img src="./readme/k2bmapb2.png" width="256">|<img src="./readme/b2kmapb2.png" width="256">|<img src="./readme/b2kmapk2.png" width="256">|
 |(40689 pixels)|(40689 pixels)|(25535 pixels)|(25535 pixels)|
 
-> k2b applied in 196.144 seconds.  
-> b2k applied in 66.446 seconds.
+> k2b applied in 186.589 seconds.  
+> b2k applied in 59.299 seconds.
 
 I went through several iterations to try to reduce the amount of time needed to estimate a color mapping. These are available upon application as methods 0-4.
 
@@ -159,10 +159,9 @@ Method 4 tries to do what method 3 does without ever needing to rerun and withou
 
 ```python
 terr = Image.open('./input/ai/terribleautotranslation.png')
-game = Image.open('./input/ai/azurgamer.png')
-eleg = Image.open('./input/ai/azurelegant.png')
+ap19 = Image.open('./input/ai/aiparty2019.png')
 
-for img in [terr, game, eleg]:
+for img in [terr, ap19]:
     scale = 300 / min(img.size)
     for method in range(5):
         k2b.initMaps() # clear memoized color mappings
@@ -174,21 +173,15 @@ for img in [terr, game, eleg]:
 |<img src="./input/ai/terribleautotranslation.png" width="300">|<img src="./readme/saver0.png">|<img src="./readme/saver1.png">|<img src="./readme/saver2.png">|<img src="./readme/saver3.png">|<img src="./readme/saver4.png">|
 |(666×1184)|(300×533)|(300×533)|(300×533)|(300×533)|(300×533)|
 
-|Input|Method 0: 974.1 seconds|Method 1: 273.6 seconds|Method 2: 213.4 seconds|Method 3: 155.7 seconds|Method 4: 144.0 seconds|
-|-|-|-|-|-|-|
-|<img src="./input/ai/azurgamer.png" width="300">|<img src="./readme/saver5.png">|<img src="./readme/saver6.png">|<img src="./readme/saver7.png">|<img src="./readme/saver8.png">|<img src="./readme/saver9.png">|
-|(161×215)|(300×400)|(300×400)|(300×400)|(300×400)|(300×400)|
-
 |Input|Method 0: 736.0 seconds|Method 1: 209.4 seconds|Method 2: 165.4 seconds|Method 3: 92.4 seconds|Method 4: 112.2 seconds|
 |-|-|-|-|-|-|
-|<img src="./input/ai/azurelegant.png" width="300">|<img src="./readme/saver10.png">|<img src="./readme/saver11.png">|<img src="./readme/saver12.png">|<img src="./readme/saver13.png">|<img src="./readme/saver14.png">|
+|<img src="./input/ai/aiparty2019.png" width="300">|<img src="./readme/saver5.png">|<img src="./readme/saver6.png">|<img src="./readme/saver7.png">|<img src="./readme/saver8.png">|<img src="./readme/saver9.png">|
 |(161×215)|(300×400)|(300×400)|(300×400)|(300×400)|(300×400)|
 
 Another way to reduce the execution time of color map application is by scaling down the images used in initialization. Unlike gradient_transfer.py, scaling down the initialization images does not downgrade the color map too much and may even provide better results.
 
 ```python
 high = Image.open('./input/ai/highrangetest.png')
-face = Image.open('./input/ai/expressions.png')
 love = Image.open('./input/ai/love.png')
 
 cms = []
@@ -197,7 +190,7 @@ for scale in [1, 0.5, 0.1, 0.05, 0.01]:
     cm.addMultiple([(kface, bface), (kbody, bbody)], scale)
     cms.append(cm)
 
-for img in [high, face, love]:
+for img in [high, love]:
     scale = 300 / min(img.size)
     for cm in cms:
         cm.initMaps() # clear memo
@@ -206,22 +199,17 @@ for img in [high, face, love]:
 
 |Color Map 0 (Input×1)|Color Map 1 (Input×0.5)|Color Map 2 (Input×0.1)|Color Map 3 (Input×0.05)|Color Map 4 (Input×0.01)|
 |-|-|-|-|-|
-|<img src="./readme/saver15.png" width="256">|<img src="./readme/saver16.png" width="256">|<img src="./readme/saver17.png" width="256">|<img src="./readme/saver18.png" width="256">|<img src="./readme/saver19.png" width="256">|
+|<img src="./readme/saver10.png" width="256">|<img src="./readme/saver11.png" width="256">|<img src="./readme/saver12.png" width="256">|<img src="./readme/saver13.png" width="256">|<img src="./readme/saver14.png" width="256">|
 |8219 pixels|21624 pixels|3345 pixels|979 pixels|52 pixels|
 
 |Input|Map 0: 60.0 seconds|Map 1: 146.4 seconds|Map 2: 26.0 seconds|Map 3: 8.6 seconds|Map 4: 1.2 seconds|
 |-|-|-|-|-|-|
-|<img src="./input/ai/highrangetest.png" width="300">|<img src="./readme/saver20.png">|<img src="./readme/saver21.png">|<img src="./readme/saver22.png">|<img src="./readme/saver23.png">|<img src="./readme/saver24.png">|
+|<img src="./input/ai/highrangetest.png" width="300">|<img src="./readme/saver15.png">|<img src="./readme/saver16.png">|<img src="./readme/saver17.png">|<img src="./readme/saver18.png">|<img src="./readme/saver19.png">|
 |(1650×1200)|(412×300)|(412×300)|(412×300)|(412×300)|(412×300)|
-
-|Input|Map 0: 0.7 seconds|Map 1: 1.5 seconds|Map 2: 0.3 seconds|Map 3: 0.2 seconds|Map 4: 0.1 seconds|
-|-|-|-|-|-|-|
-|<img src="./input/ai/expressions.png" width="300">|<img src="./readme/saver25.png">|<img src="./readme/saver26.png">|<img src="./readme/saver27.png">|<img src="./readme/saver28.png">|<img src="./readme/saver29.png">|
-|(1000×1000)|(300×300)|(300×300)|(300×300)|(300×300)|(300×300)|
 
 |Input|Map 0: 135.8 seconds|Map 1: 369.7 seconds|Map 2: 65.9 seconds|Map 3: 22.4 seconds|Map 4: 2.1 seconds|
 |-|-|-|-|-|-|
-|<img src="./input/ai/love.png" width="300">|<img src="./readme/saver30.png">|<img src="./readme/saver31.png">|<img src="./readme/saver32.png">|<img src="./readme/saver33.png">|<img src="./readme/saver34.png">|
+|<img src="./input/ai/love.png" width="300">|<img src="./readme/saver20.png">|<img src="./readme/saver21.png">|<img src="./readme/saver22.png">|<img src="./readme/saver23.png">|<img src="./readme/saver24.png">|
 |(400×600)|(300×450)|(300×450)|(300×450)|(300×450)|(300×450)|
 
 (I assume the increase in initialized colors in Map 1 is due to the resampling filter.)
@@ -239,27 +227,27 @@ for method in range(5):
 
 |Method 0, Map 0|Method 0, Map 1|Method 0, Map 2|Method 0, Map 3|Method 0, Map 4|
 |-|-|-|-|-|
-|<img src="./readme/saver35.png">|<img src="./readme/saver36.png">|<img src="./readme/saver37.png">|<img src="./readme/saver38.png">|<img src="./readme/saver39.png">|
+|<img src="./readme/saver25.png">|<img src="./readme/saver26.png">|<img src="./readme/saver27.png">|<img src="./readme/saver28.png">|<img src="./readme/saver29.png">|
 |572.7 seconds|1511.5 seconds|231.3 seconds|68.0 seconds|3.7 seconds|
 
 |Method 1, Map 0|Method 1, Map 1|Method 1, Map 2|Method 1, Map 3|Method 1, Map 4|
 |-|-|-|-|-|
-|<img src="./readme/saver40.png">|<img src="./readme/saver41.png">|<img src="./readme/saver42.png">|<img src="./readme/saver43.png">|<img src="./readme/saver44.png">|
+|<img src="./readme/saver30.png">|<img src="./readme/saver31.png">|<img src="./readme/saver32.png">|<img src="./readme/saver33.png">|<img src="./readme/saver34.png">|
 |162.0 seconds|412.2 seconds|65.1 seconds|16.4 seconds|1.2 seconds|
 
 |Method 2, Map 0|Method 2, Map 1|Method 2, Map 2|Method 2, Map 3|Method 2, Map 4|
 |-|-|-|-|-|
-|<img src="./readme/saver45.png">|<img src="./readme/saver46.png">|<img src="./readme/saver47.png">|<img src="./readme/saver48.png">|<img src="./readme/saver49.png">|
+|<img src="./readme/saver35.png">|<img src="./readme/saver36.png">|<img src="./readme/saver37.png">|<img src="./readme/saver38.png">|<img src="./readme/saver39.png">|
 |130.3 seconds|345.1 seconds|51.5 seconds|14.7 seconds|0.8 seconds|
 
 |Method 3, Map 0|Method 3, Map 1|Method 3, Map 2|Method 3, Map 3|Method 3, Map 4|
 |-|-|-|-|-|
-|<img src="./readme/saver50.png">|<img src="./readme/saver51.png">|<img src="./readme/saver52.png">|<img src="./readme/saver53.png">|<img src="./readme/saver54.png">|
+|<img src="./readme/saver40.png">|<img src="./readme/saver41.png">|<img src="./readme/saver42.png">|<img src="./readme/saver43.png">|<img src="./readme/saver44.png">|
 |75.9 seconds|204.8 seconds|41.5 seconds|14.0 seconds|1.4 seconds|
 
 |Method 4, Map 0|Method 4, Map 1|Method 4, Map 2|Method 4, Map 3|Method 4, Map 4|
 |-|-|-|-|-|
-|<img src="./readme/saver55.png">|<img src="./readme/saver56.png">|<img src="./readme/saver57.png">|<img src="./readme/saver58.png">|<img src="./readme/saver59.png">|
+|<img src="./readme/saver45.png">|<img src="./readme/saver46.png">|<img src="./readme/saver47.png">|<img src="./readme/saver48.png">|<img src="./readme/saver49.png">|
 |88.8 seconds|229.6 seconds|35.9 seconds|10.7 seconds|0.7 seconds|
 
 ## Other Scripts
