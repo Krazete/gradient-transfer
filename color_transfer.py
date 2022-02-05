@@ -160,7 +160,7 @@ if __name__ == '__main__':
     cm.addMultiple([
         (Image.open('./input/ai/unit_model_804_02_face_texture.png'), Image.open('./input/ai/unit_model_804_03_face_texture.png')),
         (Image.open('./input/ai/unit_model_804_02_texture.png'), Image.open('./input/ai/unit_model_804_03_texture.png'))
-    ])
+    ], 0.1)
 
     pngs = ['bottoms', 'eye', 'eye2', 'face', 'hair1', 'hair2', 'tops']
     for png in pngs:
