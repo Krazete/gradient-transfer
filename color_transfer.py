@@ -166,3 +166,15 @@ if __name__ == '__main__':
     for png in pngs:
         img = cm.apply(Image.open('./input/ai/pmx/{}.png'.format(png)))
         img.save('./output/ai/pmx/{}.png'.format(png))
+
+    # fullcm = ColorMap()
+    # fullcm.addMultiple([
+    #     (Image.open('./input/ai/unit_model_804_02_face_texture.png'), Image.open('./input/ai/unit_model_804_03_face_texture.png')),
+    #     (Image.open('./input/ai/unit_model_804_02_texture.png'), Image.open('./input/ai/unit_model_804_03_texture.png'))
+    # ])
+    #
+    # other = ['terribleautotranslation.png', 'highrangetest.png', 'fallguys.png', 'azurgamer.png', 'azurelegant.png']
+    # for filename in other:
+    #     img = Image.open('./input/ai/{}'.format(filename))
+    #     x = fullcm.apply(img, method=3)
+    #     x.save('./output/ai/fullcm_method3/{}.png'.format(filename.split('.')[0]))
